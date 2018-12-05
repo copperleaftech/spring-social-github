@@ -41,14 +41,18 @@ import org.springframework.web.client.RestTemplate;
 public class UserTemplate extends AbstractGitHubOperations implements UserOperations {
 
 	private final RestTemplate restTemplate;
-	
+	private String serviceHostname;
+
 	/**
 	 * @param restTemplate A RestTemplate
 	 * @param isAuthorizedForUser Boolean indicating whether the RestTemplate is authorized for a user
+	 * @param serviceHostname Service hostname
+	 * @param apiHostname API hostname
 	 */
-	public UserTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser) {
-		super(isAuthorizedForUser);
+	public UserTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, String serviceHostname, String apiHostname) {
+		super(isAuthorizedForUser, apiHostname);
 		this.restTemplate = restTemplate;
+		this.serviceHostname = serviceHostname;
 	}
 
 	public List<GitHubUser> getFollowers(String user) {
@@ -68,7 +72,7 @@ public class UserTemplate extends AbstractGitHubOperations implements UserOperat
 	}
 
 	public String getProfileUrl() {
-		return "https://github.com/" + getUserProfile().getLogin();
+		return "https://" + (this.serviceHostname != null ? this.serviceHostname : "github.com") + "/" + getUserProfile().getLogin();
 	}
 
 

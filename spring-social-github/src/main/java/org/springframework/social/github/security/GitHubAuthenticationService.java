@@ -21,8 +21,8 @@ import org.springframework.social.security.provider.OAuth2AuthenticationService;
 
 public class GitHubAuthenticationService extends OAuth2AuthenticationService<GitHub> {
 
-	public GitHubAuthenticationService(String apiKey, String appSecret) {
-		super(new GitHubConnectionFactory(apiKey, appSecret));
+	public GitHubAuthenticationService(String apiKey, String appSecret, String serviceHostname, String apiHostname) {
+		super(new GitHubConnectionFactory(apiKey, appSecret, serviceHostname, apiHostname));
 	}
 
 }

@@ -50,6 +50,8 @@ class GitHubConfigBeanDefinitionParser extends AbstractProviderConfigBeanDefinit
 	@Override
 	protected BeanDefinition getConnectionFactoryBeanDefinition(String appId, String appSecret, Map<String, Object> allAttributes) {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(GitHubConnectionFactory.class).addConstructorArgValue(appId).addConstructorArgValue(appSecret);
+		builder.addConstructorArgValue(allAttributes.get("app-service-hostname"));
+		builder.addConstructorArgValue(allAttributes.get("app-api-hostname"));
 		return builder.getBeanDefinition();
 	}
 

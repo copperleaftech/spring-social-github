@@ -26,18 +26,25 @@ import org.springframework.social.oauth2.OAuth2Template;
  */
 public class GitHubServiceProvider extends AbstractOAuth2ServiceProvider<GitHub> {
 
-	public GitHubServiceProvider(String clientId, String clientSecret) {
-		super(createOAuth2Template(clientId, clientSecret));
+	private String apiHostname;
+	private String serviceHostname;
+
+	public GitHubServiceProvider(String clientId, String clientSecret, String serviceHostname, String apiHostname) {
+		super(createOAuth2Template(clientId, clientSecret, serviceHostname));
+		this.apiHostname = apiHostname;
+		this.serviceHostname = serviceHostname;
 	}
 
-	private static OAuth2Template createOAuth2Template(String clientId, String clientSecret) {
-		OAuth2Template oAuth2Template = new OAuth2Template(clientId, clientSecret, "https://github.com/login/oauth/authorize", "https://github.com/login/oauth/access_token");
+	private static OAuth2Template createOAuth2Template(String clientId, String clientSecret, String serviceHostname) {
+		String authorizeUrl = "https://" + (serviceHostname != null ? serviceHostname : "github.com") + "/login/oauth/authorize";
+		String accessTokenUrl = "https://" + (serviceHostname != null ? serviceHostname : "github.com") + "/login/oauth/access_token";
+		OAuth2Template oAuth2Template = new OAuth2Template(clientId, clientSecret, authorizeUrl, accessTokenUrl);
 		oAuth2Template.setUseParametersForClientAuthentication(true);
 		return oAuth2Template;
 	}
 
 	public GitHub getApi(String accessToken) {
-		return new GitHubTemplate(accessToken);
+		return new GitHubTemplate(accessToken, serviceHostname, apiHostname);
 	} 
 
 }

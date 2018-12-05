@@ -29,6 +29,11 @@ import org.springframework.web.client.HttpClientErrorException;
  * @author Andy Wilkinson
  */
 public class GitHubAdapter implements ApiAdapter<GitHub> {
+	private String serviceHostname;
+
+	public GitHubAdapter(String serviceHostname) {
+		this.serviceHostname = serviceHostname;
+	}
 
 	public boolean test(GitHub github) {
 		try {
@@ -44,7 +49,7 @@ public class GitHubAdapter implements ApiAdapter<GitHub> {
 		GitHubUserProfile profile = github.userOperations().getUserProfile();
 		values.setProviderUserId(String.valueOf(profile.getId()));		
 		values.setDisplayName(profile.getLogin());
-		values.setProfileUrl("https://github.com/" + profile.getLogin()); // TODO: Expose and use HTML URL
+		values.setProfileUrl("https://" + (this.serviceHostname != null ? this.serviceHostname : "github.com") + "/" + profile.getLogin()); // TODO: Expose and use HTML URL
 		values.setImageUrl(profile.getAvatarUrl());
 	}
 

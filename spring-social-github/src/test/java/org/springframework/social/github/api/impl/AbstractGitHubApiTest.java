@@ -37,7 +37,7 @@ public abstract class AbstractGitHubApiTest {
 	
 	@Before
 	public void setup() {
-		this.gitHub = new GitHubTemplate("ACCESS_TOKEN");
+		this.gitHub = new GitHubTemplate("ACCESS_TOKEN", null, null);
 		this.mockServer = MockRestServiceServer.createServer(gitHub.getRestTemplate());
 		
 		this.responseHeaders = new HttpHeaders();
