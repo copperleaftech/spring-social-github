@@ -46,7 +46,7 @@ public class GitHubTemplate extends AbstractOAuth2ApiBinding implements GitHub {
 	 */
 	public GitHubTemplate() {
 		super();
-		initSubApis();
+		initSubApis(null, null);
 	}
 	
 	/**
@@ -57,10 +57,12 @@ public class GitHubTemplate extends AbstractOAuth2ApiBinding implements GitHub {
 	 * @param accessToken
 	 *            An access token granted to the application after OAuth
 	 *            authentication.
+	 * @param serviceHostname Service hostname
+	 * @param apiHostname API hostname
 	 */
-	public GitHubTemplate(String accessToken) {
+	public GitHubTemplate(String accessToken, String serviceHostname, String apiHostname) {
 		super(accessToken);
-		initSubApis();
+		initSubApis(serviceHostname, apiHostname);
 	}
 
 	@Override
@@ -95,10 +97,10 @@ public class GitHubTemplate extends AbstractOAuth2ApiBinding implements GitHub {
 
     // internal helpers
 	
-	private void initSubApis() {
-		this.gistOperations = new GistTemplate(getRestTemplate(), isAuthorized());
-		this.repoOperations = new RepoTemplate(getRestTemplate(), isAuthorized());
-		this.userOperations = new UserTemplate(getRestTemplate(), isAuthorized());
+	private void initSubApis(String serviceHostname, String apiHostname) {
+		this.gistOperations = new GistTemplate(getRestTemplate(), isAuthorized(), apiHostname);
+		this.repoOperations = new RepoTemplate(getRestTemplate(), isAuthorized(), apiHostname);
+		this.userOperations = new UserTemplate(getRestTemplate(), isAuthorized(), serviceHostname, apiHostname);
 	}
 
 }

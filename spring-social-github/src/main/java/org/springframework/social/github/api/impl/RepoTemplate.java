@@ -43,9 +43,10 @@ public class RepoTemplate extends AbstractGitHubOperations implements RepoOperat
 	/**
 	 * @param restTemplate A RestTemplate
 	 * @param isAuthorizedForUser Boolean indicating whether the RestTemplate is authorized for a user
+	 * @param apiHostname API hostname
 	 */
-	public RepoTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser) {
-		super(isAuthorizedForUser);
+	public RepoTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, String apiHostname) {
+		super(isAuthorizedForUser, apiHostname);
 		this.restTemplate = restTemplate;
 	}
 	

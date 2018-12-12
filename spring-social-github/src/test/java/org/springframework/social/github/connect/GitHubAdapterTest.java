@@ -29,7 +29,7 @@ import java.util.Date;
 
 public class GitHubAdapterTest {
 
-	private GitHubAdapter apiAdapter = new GitHubAdapter();
+	private GitHubAdapter apiAdapter = new GitHubAdapter(null);
 	
 	private GitHub github = Mockito.mock(GitHub.class);
 	

@@ -38,9 +38,10 @@ public class GistTemplate extends AbstractGitHubOperations implements GistOperat
 	/**
 	 * @param restTemplate A RestTemplate
 	 * @param isAuthorizedForUser Boolean indicating whether the RestTemplate is authorized for a user
+	 * @param apiHostname API hostname
 	 */
-	public GistTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser) {
-		super(isAuthorizedForUser);
+	public GistTemplate(RestTemplate restTemplate, boolean isAuthorizedForUser, String apiHostname) {
+		super(isAuthorizedForUser, apiHostname);
 		this.restTemplate = restTemplate;
 	}
 
