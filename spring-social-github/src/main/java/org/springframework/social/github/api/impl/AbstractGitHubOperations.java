@@ -42,6 +42,6 @@ class AbstractGitHubOperations {
 	// Using String here instead of URI so I can include braces in the path. See, e.g., RepoTemplate. [WLW]
 	protected String buildUri(String path) {
 //		return URIBuilder.fromUri(API_URL_BASE + path).build();
-		return "https://" + (this.apiHostname != null ? this.apiHostname : "api.github.com") + "/api/v3/" + path;
+		return "https://" + (this.apiHostname != null ? this.apiHostname + "/api/v3/" : "api.github.com/") + path;
 	}
 }
