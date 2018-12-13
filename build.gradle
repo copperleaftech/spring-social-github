@@ -55,7 +55,7 @@ configure(allprojects) {
 }
 
 configure(subprojects) { subproject ->
-    apply from: "${rootProject.projectDir}/publish-maven.gradle"
+    // apply from: "${rootProject.projectDir}/publish-maven.gradle"
 
     jar {
         manifest.attributes['Implementation-Title'] = subproject.name
